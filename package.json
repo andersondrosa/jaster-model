@@ -1,0 +1,33 @@
+{
+  "name": "jaster-model",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "test": "rimraf cache && jest --watchAll",
+    "build": "npm run clean && babel src -d dist"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Anderson Denis da Rosa",
+    "email": "andersondrosa@outlook.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andersondrosa/firedata-v1.git"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "fs": "0.0.1-security",
+    "jest": "^22.4.4",
+    "rimraf": "^3.0.1"
+  },
+  "dependencies": {
+    "jaster": "^1.0.1"
+  }
+}
