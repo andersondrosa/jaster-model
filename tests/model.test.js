@@ -9,7 +9,7 @@ function rm() {
 
 describe("MODEL", () => {
   //
-  it("===========", async function() {
+  it("Should be OK", async function() {
     //
 
     const extension = {
@@ -50,7 +50,8 @@ describe("MODEL", () => {
       teste: "ok"
     });
     $mary.commit()
-    // console.log($mary.getData())
     console.log($mary.getCommits());
+    
+    console.log($mary.getData())
   });
 });
