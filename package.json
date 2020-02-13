@@ -8,6 +8,9 @@
     "test": "rimraf cache && jest --watchAll",
     "build": "npm run clean && babel src -d dist"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": {
     "name": "Anderson Denis da Rosa",
@@ -17,9 +20,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/andersondrosa/firedata-v1.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

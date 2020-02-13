@@ -1,57 +1,207 @@
 import Model from "../src";
+import { object, rm } from "../src";
+import { order, nested, deepNested } from "../src/utils";
 
-function object(o) {
-  return { "<:new:>": true, ...o };
+function print(o) {
+  console.log(JSON.stringify(o, null, 2));
 }
-function rm() {
-  return { __rm: [...arguments] };
-}
+//
+const data = {
+  first: "ok"
+};
 
-describe("MODEL", () => {
+const $john = new Model(data);
+
+it("Put first data", function() {
   //
-  it("Should be OK", async function() {
-    //
-
-    const extension = {
-      original: "ok"
-    };
-
-    const $john = new Model(extension);
-
-    $john.put({
-      name: "John Doe"
-    });
-
-    $john.put(data => ({
-      teste: data.name
-    }));
-
-    $john.commit(); // ====================
-
-    $john.put({
-      name: "NINJA"
-    });
-
-    $john.put({
-      name: "SAMURAI"
-    });
-
-    $john.rollback();
-    $john.commit(); // ====================
-
-    // $john.rollforth();
-
-    const commits = $john.getCommits();
-
-    console.log(commits);
-
-    const $mary = new Model(extension, commits);
-    $mary.put({
-      teste: "ok"
-    });
-    $mary.commit()
-    console.log($mary.getCommits());
-    
-    console.log($mary.getData())
+  $john.put({
+    name: "John",
+    age: 30
   });
+
+  expect($john.getData()).toMatchSnapshot();
+});
+
+// PUT =======================================================================
+it("Put John Doe", function() {
+  //
+  $john.put(data => ({
+    name: data.name + " Doe"
+  }));
+
+  expect($john.getData()).toMatchSnapshot();
+
+  expect($john.getUncommitedData()).toMatchSnapshot();
+});
+
+// COMMIT ====================================================================
+it("First commit", function() {
+  //
+  $john.commit();
+
+  expect($john.getCommits()).toMatchSnapshot();
+});
+
+// PUT =======================================================================
+it("Put Jane Doe", function() {
+  //
+  $john.put({ name: "Jane Doe" });
+
+  expect($john.getData()).toMatchSnapshot();
+});
+
+// ROLLBACK ==================================================================
+it("Rollback", function() {
+  //
+  $john.rollback();
+
+  expect($john.getData()).toMatchSnapshot();
+});
+
+// ROLLFORTH==================================================================
+it("Rollforth", function() {
+  //
+  $john.rollforth();
+
+  expect($john.getData()).toMatchSnapshot();
+});
+
+// PUT =======================================================================
+it("Put Mary Doe", function() {
+  //
+  $john.put({ name: "Mary Doe" });
+
+  expect($john.getData()).toMatchSnapshot();
+
+  expect($john.getUncommitedData()).toMatchSnapshot();
+});
+
+// ROLLBACK ==================================================================
+it("Rollback Mary Doe", function() {
+  //
+  $john.rollback();
+
+  expect($john.getData()).toMatchSnapshot();
+
+  expect($john.getUncommitedData()).toMatchSnapshot();
+});
+
+// COMMIT ====================================================================
+it("Second Commit", function() {
+  //
+  $john.commit();
+
+  expect($john.getUncommitedData()).toMatchSnapshot();
+
+  expect($john.getCommits()).toMatchSnapshot();
+
+  expect($john.getData()).toMatchSnapshot();
+});
+
+// ROLLBACKL COMMIT ==========================================================
+it("Rollback second commit", function() {
+  //
+  $john.rollbackCommit(1);
+
+  expect($john.getCommits()).toMatchSnapshot();
+
+  expect($john.getData()).toMatchSnapshot();
+
+  expect($john.getUncommitedData()).toMatchSnapshot();
+});
+
+// ===========================================================
+it("Final", function() {
+  //
+  let commits = $john.getCommits();
+
+  const $mary = new Model(data, commits);
+
+  $mary.put({
+    alpha: "foo"
+  });
+
+  $mary.commit();
+
+  $mary.put({
+    omega: "baz",
+    alpha: "bar"
+  });
+
+  $mary.commit();
+
+  expect(commits).toMatchSnapshot();
+
+  // print($mary.getCommits());
+
+  expect($mary.getCommits()).toMatchSnapshot();
+
+  $mary.restore();
+
+  // print($mary.getCommits());
+
+  expect($mary.undoCommits).toMatchSnapshot();
+
+  $mary.rollbackCommit();
+  expect($mary.undoCommits).toMatchSnapshot();
+});
+
+it("Test", function() {
+  const $model = new Model({});
+
+  $model.put({
+    a: "1"
+  });
+
+  $model.commit("commit a:1");
+
+  $model.put({
+    b: "1"
+  });
+
+  $model.commit("commit b:1");
+
+  $model.put({
+    c: "1"
+  });
+
+  $model.putn({
+    "d.b": "B",
+    "d.a": "A"
+  });
+
+  $model.commit("commit c:1, d:1");
+
+  $model.put({
+    d: {
+      ...rm("a"),
+      a: "A"
+    }
+  });
+
+  $model.commit();
+
+  // $model.cleanHistoric();
+
+  print($model.getData());
+  
+  $model.rollback() && print("ROLL BACK OK");
+  
+  print($model.getData());
+
+  // $model.rollback() && print("ROLL BACK OK");
+
+  // $model.rollforth() && print("ROLL FORTH OK");
+
+  // $model.commit("commit RM c:1, d:1") && print("COMMIT");
+  // $model.commit("commit RM c:1, d:1") && print("COMMIT");
+  // $model.commit("commit RM c:1, d:1") && print("COMMIT");
+
+  $model.commitRequired() && print("COMMIT REQUIRED");
+
+  print($model.get("d.a"))
+  // print(JSON.parse($model.commitData))
+  // print($model.getUncommitedData());
+
+  // print($model.getCommits());
 });

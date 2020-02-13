@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Final 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "age": 30,
+      "name": "John Doe",
+    },
+    "type": "put",
+  },
+]
+`;
+
+exports[`Final 2`] = `
+Array [
+  Object {
+    "data": Object {
+      "age": 30,
+      "name": "John Doe",
+    },
+    "type": "put",
+  },
+  Object {
+    "data": Object {
+      "alpha": "foo",
+    },
+    "type": "put",
+  },
+  Object {
+    "data": Object {
+      "alpha": "bar",
+      "omega": "baz",
+    },
+    "type": "put",
+  },
+]
+`;
+
+exports[`Final 3`] = `
+Array [
+  Object {
+    "__rm": Array [
+      "age",
+      "name",
+    ],
+  },
+  Object {
+    "__rm": Array [
+      "alpha",
+    ],
+  },
+  Object {
+    "__rm": Array [
+      "omega",
+    ],
+    "alpha": "foo",
+  },
+]
+`;
+
+exports[`Final 4`] = `
+Array [
+  Object {
+    "__rm": Array [
+      "age",
+      "name",
+    ],
+  },
+  Object {
+    "__rm": Array [
+      "alpha",
+    ],
+  },
+]
+`;
+
+exports[`First commit 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "age": 30,
+      "name": "John Doe",
+    },
+    "type": "put",
+  },
+]
+`;
+
+exports[`Put Jane Doe 1`] = `
+Object {
+  "age": 30,
+  "first": "ok",
+  "name": "Jane Doe",
+}
+`;
+
+exports[`Put John Doe 1`] = `
+Object {
+  "age": 30,
+  "first": "ok",
+  "name": "John Doe",
+}
+`;
+
+exports[`Put John Doe 2`] = `
+Object {
+  "age": 30,
+  "name": "John Doe",
+}
+`;
+
+exports[`Put Mary Doe 1`] = `
+Object {
+  "age": 30,
+  "first": "ok",
+  "name": "Mary Doe",
+}
+`;
+
+exports[`Put Mary Doe 2`] = `
+Object {
+  "name": "Mary Doe",
+}
+`;
+
+exports[`Put first data 1`] = `
+Object {
+  "age": 30,
+  "first": "ok",
+  "name": "John",
+}
+`;
+
+exports[`Rollback 1`] = `
+Object {
+  "age": 30,
+  "first": "ok",
+  "name": "John Doe",
+}
+`;
+
+exports[`Rollback Mary Doe 1`] = `
+Object {
+  "age": 30,
+  "first": "ok",
+  "name": "Jane Doe",
+}
+`;
+
+exports[`Rollback Mary Doe 2`] = `
+Object {
+  "name": "Jane Doe",
+}
+`;
+
+exports[`Rollback second commit 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "age": 30,
+      "name": "John Doe",
+    },
+    "type": "put",
+  },
+]
+`;
+
+exports[`Rollback second commit 2`] = `
+Object {
+  "age": 30,
+  "first": "ok",
+  "name": "John Doe",
+}
+`;
+
+exports[`Rollback second commit 3`] = `Object {}`;
+
+exports[`Rollforth 1`] = `
+Object {
+  "age": 30,
+  "first": "ok",
+  "name": "Jane Doe",
+}
+`;
+
+exports[`Second Commit 1`] = `Object {}`;
+
+exports[`Second Commit 2`] = `
+Array [
+  Object {
+    "data": Object {
+      "age": 30,
+      "name": "John Doe",
+    },
+    "type": "put",
+  },
+  Object {
+    "data": Object {
+      "name": "Jane Doe",
+    },
+    "type": "put",
+  },
+]
+`;
+
+exports[`Second Commit 3`] = `
+Object {
+  "age": 30,
+  "first": "ok",
+  "name": "Jane Doe",
+}
+`;

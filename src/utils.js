@@ -37,9 +37,7 @@ export function lget(path, layers) {
   }
 
   if (path.indexOf("[") > -1) {
-    path = path.replace(/\[([^\]]+)\]/g, (m, i) => {
-      return "." + i;
-    });
+    path = path.replace(/\[([^\]]+)\]/g, (m, i) => "." + i);
   }
 
   let i = path.indexOf(".");
@@ -79,22 +77,17 @@ export function slget(key, layers, def) {
 }
 
 export function set(data, path, value) {
-  let keys = path.split(".");
-
+  const keys = path.split(".");
+  let key;
   let pointer = data;
-
   let _key = keys.pop();
-
   for (let i in keys) {
-    let key = keys[i];
-
+    key = keys[i];
     if (!pointer.hasOwnProperty(key) || !isObject(pointer[key])) {
       pointer[key] = {};
     }
-
     pointer = pointer[key];
   }
-
   pointer[_key] = value;
 }
 
@@ -136,3 +129,72 @@ export function size(object) {
   }
   return length;
 }
+
+function order(o) {
+  const r = Array.isArray(o) ? [] : {};
+  let v, k, i;
+  const keys = Object.keys(o).sort();
+  for (i in keys) {
+    k = keys[i];
+    v = o[k];
+    r[k] = typeof v === "object" && v !== null ? order(v) : v;
+  }
+  return r;
+}
+
+function clone(o) {
+  let r, v, k;
+  if (typeof o !== "object" || o === null) {
+    return o;
+  }
+  r = Array.isArray(o) ? [] : {};
+  for (k in o) {
+    v = o[k];
+    r[k] = typeof v === "object" && v !== null ? clone(v) : v;
+  }
+  return r;
+}
+
+function set2(obj, propertyPath, value) {
+  let keys = Array.isArray(propertyPath)
+    ? propertyPath
+    : propertyPath.split(".");
+
+  if (keys.length > 1) {
+    if (!obj.hasOwnProperty(keys[0]) || typeof obj[keys[0]] !== "object") {
+      obj[keys[0]] = {};
+    }
+    return set2(obj[keys[0]], keys.slice(1), value);
+  } else {
+    obj[keys[0]] = value;
+    return true; // this is the end
+  }
+}
+
+function nested(o, deep) {
+  if (deep) {
+    return deepNested(o);
+  }
+  const r = {};
+  for (const k in o) {
+    set(r, k, o[k]);
+  }
+  return r;
+}
+
+function deepNested(o) {
+  //
+  if (Array.isArray(o)) {
+    return o.map(v => (v && typeof v == "object" ? deepNested(v) : v));
+  }
+
+  let v;
+  const r = {};
+  for (const k in o) {
+    v = o[k];
+    set(r, k, v && typeof v == "object" ? deepNested(v) : v);
+  }
+  return r;
+}
+
+export { order, clone, nested };
