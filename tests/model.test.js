@@ -180,28 +180,12 @@ it("Test", function() {
   });
 
   $model.commit();
-
-  // $model.cleanHistoric();
-
-  print($model.getData());
   
-  $model.rollback() && print("ROLL BACK OK");
+  $model.rollback();
+  $model.rollback();
+  $model.rollforth();
   
-  print($model.getData());
-
-  // $model.rollback() && print("ROLL BACK OK");
-
-  // $model.rollforth() && print("ROLL FORTH OK");
-
-  // $model.commit("commit RM c:1, d:1") && print("COMMIT");
-  // $model.commit("commit RM c:1, d:1") && print("COMMIT");
-  // $model.commit("commit RM c:1, d:1") && print("COMMIT");
-
-  $model.commitRequired() && print("COMMIT REQUIRED");
-
-  print($model.get("d.a"))
-  // print(JSON.parse($model.commitData))
-  // print($model.getUncommitedData());
-
-  // print($model.getCommits());
+  $model.commit();
+  
+  expect($model.getCommits()).toMatchSnapshot()
 });

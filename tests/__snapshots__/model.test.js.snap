@@ -211,3 +211,33 @@ Object {
   "name": "Jane Doe",
 }
 `;
+
+exports[`Test 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "a": "1",
+    },
+    "message": "commit a:1",
+    "type": "put",
+  },
+  Object {
+    "data": Object {
+      "b": "1",
+    },
+    "message": "commit b:1",
+    "type": "put",
+  },
+  Object {
+    "data": Object {
+      "c": "1",
+      "d": Object {
+        "a": "A",
+        "b": "B",
+      },
+    },
+    "message": "commit c:1, d:1",
+    "type": "put",
+  },
+]
+`;
