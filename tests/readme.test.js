@@ -1,6 +1,6 @@
 import Model from "../src";
 import { object, rm } from "../src";
-import { order, nested, deepNested } from "../src/utils";
+import { order, nested, deepNested, hash } from "../src/utils";
 
 // Log data as pretty JSON
 const log = (text, o) => console.log(text, JSON.stringify(o, null, 2));
@@ -105,7 +105,9 @@ it("README - Link and Zelda", function() {
   
   // Then we make commit again
   zelda.commit();
-  
+
+  // console.log(zelda.getCommits());
+
   // Now just start your adventure game 
   // log("data", zelda.getData());
   expect(zelda.getData()).toMatchSnapshot();

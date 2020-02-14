@@ -7,6 +7,7 @@ Array [
       "age": 30,
       "name": "John Doe",
     },
+    "integrity": "2ac4013c25ea96bed7550369750e3a7380cebc30",
     "type": "put",
   },
 ]
@@ -19,12 +20,14 @@ Array [
       "age": 30,
       "name": "John Doe",
     },
+    "integrity": "2ac4013c25ea96bed7550369750e3a7380cebc30",
     "type": "put",
   },
   Object {
     "data": Object {
       "alpha": "foo",
     },
+    "integrity": "b4c307fc7d639b250c45e9114dee6e71af65ab7a",
     "type": "put",
   },
   Object {
@@ -32,6 +35,7 @@ Array [
       "alpha": "bar",
       "omega": "baz",
     },
+    "integrity": "01edfb0e1426fd641f7937f2118cee13d454644f",
     "type": "put",
   },
 ]
@@ -82,6 +86,7 @@ Array [
       "age": 30,
       "name": "John Doe",
     },
+    "integrity": "2ac4013c25ea96bed7550369750e3a7380cebc30",
     "type": "put",
   },
 ]
@@ -161,6 +166,7 @@ Array [
       "age": 30,
       "name": "John Doe",
     },
+    "integrity": "2ac4013c25ea96bed7550369750e3a7380cebc30",
     "type": "put",
   },
 ]
@@ -193,12 +199,14 @@ Array [
       "age": 30,
       "name": "John Doe",
     },
+    "integrity": "2ac4013c25ea96bed7550369750e3a7380cebc30",
     "type": "put",
   },
   Object {
     "data": Object {
       "name": "Jane Doe",
     },
+    "integrity": "b4c307fc7d639b250c45e9114dee6e71af65ab7a",
     "type": "put",
   },
 ]
@@ -218,6 +226,7 @@ Array [
     "data": Object {
       "a": "1",
     },
+    "integrity": "bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f",
     "message": "commit a:1",
     "type": "put",
   },
@@ -225,6 +234,7 @@ Array [
     "data": Object {
       "b": "1",
     },
+    "integrity": "1708d735828d488e7eba7cb61e27c30b8c2b5178",
     "message": "commit b:1",
     "type": "put",
   },
@@ -236,8 +246,68 @@ Array [
         "b": "B",
       },
     },
+    "integrity": "1d9275ffc7f21f853243aea307714b65173b8360",
     "message": "commit c:1, d:1",
     "type": "put",
   },
 ]
+`;
+
+exports[`Test 2`] = `
+Object {
+  "changed_keys": Array [
+    "alpha.alpha.alpha.omega",
+    "alpha.alpha.alpha.lambda",
+  ],
+  "created_keys": Array [
+    "alpha.alpha.alpha.gamma",
+    "alpha.alpha.alpha.pi",
+    "alpha.alpha.zeta",
+    "alpha.beta",
+    "alpha.delta",
+    "beta.alpha",
+    "beta.sigma.sigma",
+    "beta.sigma.delta",
+    "beta.beta.beta",
+    "beta.beta.pi",
+  ],
+  "rollback": Object {
+    "alpha": Object {
+      "__rm": Array [
+        "beta",
+        "delta",
+      ],
+      "alpha": Object {
+        "__rm": Array [
+          "zeta",
+        ],
+        "alpha": Object {
+          "__rm": Array [
+            "gamma",
+            "pi",
+          ],
+          "lambda": "sampi",
+          "omega": "omega",
+        },
+      },
+    },
+    "beta": Object {
+      "__rm": Array [
+        "alpha",
+      ],
+      "beta": Object {
+        "__rm": Array [
+          "beta",
+          "pi",
+        ],
+      },
+      "sigma": Object {
+        "__rm": Array [
+          "sigma",
+          "delta",
+        ],
+      },
+    },
+  },
+}
 `;

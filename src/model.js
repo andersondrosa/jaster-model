@@ -1,4 +1,4 @@
-import { get, isObject, order, clone, nested, emptyObject } from "./utils.js";
+import { get, isObject, order, clone, nested, emptyObject, hash } from "./utils.js";
 import { merge, diff, sha256 } from "jaster";
 
 function setStartData($this, data) {
@@ -87,7 +87,7 @@ export default class {
   }
 
   getIntegrity() {
-    return sha256(this.commitData);
+    return hash(this.commitData);
   }
 
   getUncommitedData() {
@@ -194,16 +194,16 @@ export default class {
 
     const str_data = JSON.stringify(fdata);
 
-    const hash = sha256(str_data);
+    const integrity = hash(str_data);
 
     if (certified) {
       fdata._certified = certified;
 
-      if ((certified === hash) == false) {
+      if ((certified === integrity) == false) {
         throw "Invalid certified " +
           certified +
           ". Valid certified must match " +
-          hash;
+          integrity;
       }
     }
   }
@@ -221,7 +221,14 @@ export default class {
       return false;
     }
 
-    const commit = { type, message, data };
+    const integrity = this.getIntegrity();
+
+    const commit = {
+      type,
+      message,
+      integrity,
+      data
+    };
 
     if (!message) {
       delete commit.message;

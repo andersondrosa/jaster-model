@@ -21,6 +21,7 @@ Array [
       "rupees": 130,
       "type": "warrior 🧝🏼‍♂",
     },
+    "integrity": "de9148ce7c6ee82fa253b3975364c33bd669f9b7",
     "type": "put",
   },
 ]
@@ -47,6 +48,7 @@ Array [
       "rupees": 130,
       "type": "warrior 🧝🏼‍♂",
     },
+    "integrity": "de9148ce7c6ee82fa253b3975364c33bd669f9b7",
     "type": "put",
   },
 ]
@@ -83,6 +85,7 @@ Object {
         "rupees": 130,
         "type": "warrior 🧝🏼‍♂",
       },
+      "integrity": "de9148ce7c6ee82fa253b3975364c33bd669f9b7",
       "type": "put",
     },
   ],
@@ -104,6 +107,7 @@ Object {
         "rupees": 130,
         "type": "warrior 🧝🏼‍♂",
       },
+      "integrity": "de9148ce7c6ee82fa253b3975364c33bd669f9b7",
       "type": "put",
     },
     Object {
@@ -117,6 +121,7 @@ Object {
           "type": "warrior 🧝🏼‍♂ 💪🏻",
         },
       },
+      "integrity": "19f81578efb0e1f7ecda8b2f2ff01b67e5829c93",
       "type": "put",
     },
   ],

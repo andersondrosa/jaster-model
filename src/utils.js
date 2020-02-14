@@ -1,4 +1,4 @@
-"use strict";
+import sha1 from './sha1'
 
 export function isObject(o) {
   return o instanceof Object && o.constructor.name == "Object";
@@ -182,3 +182,9 @@ function deepNested(o) {
 }
 
 export { order, clone, nested };
+
+function hash(str) {
+  return sha1.hash(str);
+}
+
+export { hash };

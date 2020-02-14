@@ -1,6 +1,6 @@
 import Model from "../src";
-import { object, rm } from "../src";
-import { order, nested, deepNested } from "../src/utils";
+import { rm } from "../src";
+import { hash } from "../src/utils";
 
 function print(o) {
   console.log(JSON.stringify(o, null, 2));
@@ -111,6 +111,7 @@ it("Rollback second commit", function() {
 });
 
 // ===========================================================
+
 it("Final", function() {
   //
   let commits = $john.getCommits();
@@ -180,12 +181,36 @@ it("Test", function() {
   });
 
   $model.commit();
-  
+
   $model.rollback();
   $model.rollback();
   $model.rollforth();
-  
+
   $model.commit();
-  
-  expect($model.getCommits()).toMatchSnapshot()
+
+  expect($model.getCommits()).toMatchSnapshot();
+
+  const base = require("./examples/base");
+  const change = require("./examples/change");
+
+  const $test = new Model(base);
+
+  $test.put(change);
+
+  expect({
+    rollback: $test.prevData[0].rollback,
+    created_keys: $test.prevData[0].created_keys,
+    changed_keys: $test.prevData[0].changed_keys
+  }).toMatchSnapshot();
+  //
+
+  const json = JSON.stringify(change);
+
+  let i;
+  for (i = 0; i < 10000; i++) {
+    // hash(json);
+  }
+
+  console.log(hash("2e6f9b0d5885b6010f9167787445617f553a735f"));
+  // console.log(" =============== ", hash.hash("teste"))
 });
