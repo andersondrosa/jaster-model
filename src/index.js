@@ -1,7 +1,7 @@
 import model from "./model";
-import { isObject, nested, order } from "./utils";
+import { isObject, nested, order, hash } from "./utils";
 
-export { isObject, nested, order };
+export { isObject, nested, order, hash };
 
 export function object(o) {
   return { "<:new:>": true, ...o };

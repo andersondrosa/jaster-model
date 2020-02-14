@@ -1,6 +1,6 @@
 import Model from "../src";
 import { rm } from "../src";
-import { hash } from "../src/utils";
+import { hash } from "../src";
 
 function print(o) {
   console.log(JSON.stringify(o, null, 2));
