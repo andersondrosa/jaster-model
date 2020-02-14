@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`README - Link and Zelda 1`] = `"Link"`;
+
+exports[`README - Link and Zelda 2`] = `"villager"`;
+
+exports[`README - Link and Zelda 3`] = `
+Object {
+  "gender": "male",
+  "name": "Link",
+  "rupees": 130,
+  "type": "warrior 🧝🏼‍♂",
+}
+`;
+
+exports[`README - Link and Zelda 4`] = `
+Array [
+  Object {
+    "data": Object {
+      "name": "Link",
+      "rupees": 130,
+      "type": "warrior 🧝🏼‍♂",
+    },
+    "type": "put",
+  },
+]
+`;
+
+exports[`README - Link and Zelda 5`] = `"Evil 'Link' 🧟‍♂"`;
+
+exports[`README - Link and Zelda 6`] = `"Link"`;
+
+exports[`README - Link and Zelda 7`] = `
+Object {
+  "gender": "male",
+  "name": "Character",
+  "rupees": 30,
+  "type": "villager",
+}
+`;
+
+exports[`README - Link and Zelda 8`] = `
+Array [
+  Object {
+    "data": Object {
+      "name": "Link",
+      "rupees": 130,
+      "type": "warrior 🧝🏼‍♂",
+    },
+    "type": "put",
+  },
+]
+`;
+
+exports[`README - Link and Zelda 9`] = `
+Object {
+  "gender": "male",
+  "name": "Link",
+  "rupees": 130,
+  "type": "warrior 🧝🏼‍♂",
+}
+`;
+
+exports[`README - Link and Zelda 10`] = `
+Object {
+  "gender": "female",
+  "name": "Zelda",
+  "rupees": 2600,
+  "type": "princess 🧝🏼‍♀",
+  "wholoves": Object {
+    "name": "Link ♥",
+    "type": "warrior 🧝🏼‍♂ 💪🏻",
+  },
+}
+`;
+
+exports[`README - Link and Zelda 11`] = `
+Object {
+  "commits": Array [
+    Object {
+      "data": Object {
+        "name": "Link",
+        "rupees": 130,
+        "type": "warrior 🧝🏼‍♂",
+      },
+      "type": "put",
+    },
+  ],
+  "data": Object {
+    "gender": "male",
+    "name": "Character",
+    "rupees": 30,
+    "type": "villager",
+  },
+}
+`;
+
+exports[`README - Link and Zelda 12`] = `
+Object {
+  "commits": Array [
+    Object {
+      "data": Object {
+        "name": "Link",
+        "rupees": 130,
+        "type": "warrior 🧝🏼‍♂",
+      },
+      "type": "put",
+    },
+    Object {
+      "data": Object {
+        "gender": "female",
+        "name": "Zelda",
+        "rupees": 2600,
+        "type": "princess 🧝🏼‍♀",
+        "wholoves": Object {
+          "name": "Link ♥",
+          "type": "warrior 🧝🏼‍♂ 💪🏻",
+        },
+      },
+      "type": "put",
+    },
+  ],
+  "data": Object {
+    "gender": "male",
+    "name": "Character",
+    "rupees": 30,
+    "type": "villager",
+  },
+}
+`;

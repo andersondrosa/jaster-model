@@ -1,129 +1,114 @@
-# Firedata at Master
+# Jaster Model
 
 ## How To Install
 
 ```bash
-git clone https://github.com/andersondrosa/firedata.git
-cd firedata
+git clone https://github.com/andersondrosa/jaster-model.git
+cd jaster-model
 npm install
 npm test
 ```
 
 ## How To Use
 
-First of all, we need to create and save a root entity as human
+We will use the characters from the game zelda to show the basic features of the jaster-model class
 
 ```js
-const fdata = new Firedata();
+import model from "jaster-model";
 
-fdata.use(DependencyProvider);
+const character = {
+  name: "Character",
+  type: "villager",
+  rupees: 30,
+  gender: "male"
+};
 
-const $base = await fdata.create({
-  // Setting current stage as 'human'
-  $set: { stage: "human" },
-  // Default info data
-  type: "animal",
-  species: "human",
-  gender: "male",
-  // Setting rules to next stage 'person'
-  "@match:person": {
-    name: "required|string",
-    age: "required|number"
-  }
+const link = new Model(character);
+
+link.put({
+  name: "Link"
 });
 
-$base.commit("First data commit");
+// So to see the link name just run the get function
+console.log("link name", link.get("name"));
+// Link, no longer Character
 
-$base.submit("First rule submit");
+// But the character type is still Villager
+console.log("link type", link.get("type")); // villager
 
-// Storing the data to extend later
-await fdata.store({
-  path: "local:human 1.0",
-  data: $base.exportData()
+// Then, let's change the type of the link to warrior 💪🏻
+link.put({ type: "warrior 🧝🏼‍♂" });
+
+// And also increase his rupees into 100 😏💎
+link.put(state => {
+  return { rupees: state.rupees + 100 };
 });
+
+// let's see how our character became?
+console.log("data", link.getData());
+
+// Now we can save the changes by making the commits
+link.commit();
+
+// Now that it has been saved, if something happens to the link
+// just restore the data for the last commit
+
+// Oops, some zombie infected the link and changed its name 😱
+link.put(({ name }) => ({
+  name: `Evil '${name}' 🧟‍♂`
+}));
+
+console.log("link name", link.get("name")); // Evil 'Link' 🧟‍♂
+
+// Lets try to restoring removing the latest changes
+link.discardChanges();
+
+// Phew.. the link went back to normal 😆🙌🏻
+console.log("link name", link.get("name")); // Link
+
+// So, I think we better save it somewhere so we don't lose the link again
+let { data, commits } = link.exportData();
+
+// And we can take a look to see if everything is alright
+console.log("Link initial data", data);
+
+// And see our first commit too
+console.log("Link commits", commits);
+
+//The exported data can reconstruct the link to edit later if we need to,
+// however, if you don't need to edit it anymore,
+// just get your data in a simple way
+console.log("full data", link.getData());
+
 ```
 
-So, we need to extend the saved human data and change the data to meet the rules previously declared
+## Extending data
+
+What do you think about using the link as a model to create the Zelda princess?
 
 ```js
-// Extending human data
-let $person = await fdata.extends({ from: "local:human 1.0" });
+// So we need to create a simple model based on the saved data
+const zelda = new Model(data, commits);
 
-// Setting new data over human data
-$person.put({
-  // declaring the name of the new stage
-  $set: { stage: "person" },
-  name: "John Doe",
-  age: 30
-});
-
-$person.commit();
-
-$person.submit();
-
-const data = await $person.getData();
-
-console.log(JSON.stringify(data, null, 2));
-```
-
-## Output response
-
-```json
-{
-  "_stages": {},
-  "_certifieds": {
-    "human": "04e7885bbe2a8c1781c0d04db0491583d67147b3e257a9bf0bcc31be0e9efee0",
-    "person": "d063e73ae64c02a0ea05b14ba27256bddcc36170aa1f9683f6ec018824384471"
-  },
-  "type": "animal",
-  "species": "human",
-  "gender": "male",
-  "name": "John Doe",
-  "age": 30
-}
-```
-
-## Extending entity data to third parties to use later
-
-```js
-const versioned_data = await $person.exportData();
-
-console.log(versioned_data);
-```
-
-That will return on output:
-
-```json
-{
-  "_doctype": "payload/data",
-  "_certified": "878fce10eebd39a7a681ec573e1293e5e85063bcd348f1ed6cddefa6c5e9058d",
-  "_engine": "1.0",
-  "_extends": {
-    "from": "local:human 1.0"
-  },
-  "_commits": [
-    {
-      "type": "PUT",
-      "data": {
-        "$set": {
-          "stage": "person"
-        },
-        "name": "John Doe",
-        "age": 30
-      }
-    },
-    {
-      "type": "SUBMIT",
-      "data": {
-        "_stages": {
-          "__rm": ["person"]
-        },
-        "_certifieds": {
-          "person": "d063e73ae64c02a0ea05b14ba27256bddcc36170aa1f9683f6ec018824384471"
-        },
-        "__rm": ["$set"]
-      }
+// We must then set the princess's values and (of course)
+// multiply her rupees by 20 times
+zelda.put(state => {
+  return {
+    name: "Zelda",
+    type: "princess 🧝🏼‍♀",
+    gender: "female",
+    rupees: state.rupees * 20,
+    // And we can use her crush data here 😏
+    wholoves: {
+      name: state.name + " ♥",
+      type: state.type + " 💪🏻"
     }
-  ]
-}
+  };
+});
+
+// Then we make commit again
+zelda.commit();
+
+// Now just start your adventure game 
+console.log("data", zelda.getData());
 ```

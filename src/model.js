@@ -79,6 +79,13 @@ export default class {
     return {};
   }
 
+  exportData() {
+    return {
+      data: JSON.parse(this.startData),
+      commits: this.getCommits()
+    };
+  }
+
   getIntegrity() {
     return sha256(this.commitData);
   }
