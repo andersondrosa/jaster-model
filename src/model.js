@@ -258,30 +258,6 @@ export default class {
     setCommitData(this);
   }
 
-  // rollbackCommit(levels) {
-  //   //
-  //   const commits = [];
-
-  //   levels = this.commits.length - levels;
-
-  //   for (const i in this.commits) {
-  //     if (i == levels) {
-  //       this.commits = commits;
-  //       break;
-  //     }
-
-  //     const commit = this.commits[i];
-
-  //     commits.push(commit);
-  //   }
-
-  //   this.cleanHistoric();
-
-  //   this.commits = commits;
-
-  //   this.restore();
-  // }
-
   restore() {
     //
     this.data = JSON.parse(this.startData);
