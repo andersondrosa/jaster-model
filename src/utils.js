@@ -155,22 +155,6 @@ function clone(o) {
   return r;
 }
 
-function set2(obj, propertyPath, value) {
-  let keys = Array.isArray(propertyPath)
-    ? propertyPath
-    : propertyPath.split(".");
-
-  if (keys.length > 1) {
-    if (!obj.hasOwnProperty(keys[0]) || typeof obj[keys[0]] !== "object") {
-      obj[keys[0]] = {};
-    }
-    return set2(obj[keys[0]], keys.slice(1), value);
-  } else {
-    obj[keys[0]] = value;
-    return true; // this is the end
-  }
-}
-
 function nested(o, deep) {
   if (deep) {
     return deepNested(o);

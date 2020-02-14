@@ -1,8 +1,7 @@
 import model from "./model";
+import { isObject, nested, order } from "./utils";
 
-export function isObject(o) {
-  return o instanceof Object && o.constructor.name == "Object";
-}
+export { isObject, nested, order };
 
 export function object(o) {
   return { "<:new:>": true, ...o };
