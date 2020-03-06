@@ -1,5 +1,13 @@
-import { get, isObject, order, clone, nested, emptyObject, hash } from "./utils.js";
-import { merge, diff, sha256 } from "jaster";
+import { merge, diff } from "jaster-merge";
+import {
+  get,
+  isObject,
+  order,
+  clone,
+  nested,
+  emptyObject,
+  hash
+} from "./utils.js";
 
 function setStartData($this, data) {
   $this.startData = $this.commitData = JSON.stringify(order(data));
@@ -13,7 +21,7 @@ function setCommitData($this) {
   $this.dirty = false;
 }
 
-export default class {
+class Model {
   //
   constructor(data, commits) {
     //
@@ -26,6 +34,9 @@ export default class {
 
     this.prevData = [];
     this.nextData = [];
+
+    this._actions = {};
+    this._meta = {};
 
     if (data && isObject(data)) {
       setStartData(this, data);
@@ -114,8 +125,6 @@ export default class {
 
   // ===========================================================================
   // ===========================================================================
-
-  // ACTIONS
 
   setCommits(commits) {
     this.commits = clone(commits);
@@ -280,10 +289,58 @@ export default class {
   // ===========================================================================
   // ===========================================================================
   // ===========================================================================
+  // ===========================================================================
 
   // ALIAS
 
   putn(o) {
     return this.put(nested(o, true));
   }
+
+  // ===========================================================================
+  // ===========================================================================
+
+  // META DADOS
+  meta(key, value) {
+    if (value === undefined) {
+      return this._meta[key];
+    }
+    this._meta[key] = value;
+    return this;
+  }
+
+  // ===========================================================================
+  // ===========================================================================
+
+  // INSTALLER
+  use(o) {
+    o && o.hasOwnProperty("install") && o.install(this);
+  }
+
+  // ACTIONS
+  action(key, fn) {
+    this._actions[key] = fn;
+  }
+
+  mapActions(methods) {
+    Object.keys(methods).map(key => {
+      const method = methods[key];
+      this._actions[key] = method;
+      this["$" + key] = method;
+    });
+  }
+
+  make(key, params) {
+    if (!this._actions.hasOwnProperty(key)) {
+      throw `Action '${key}' is not defined`;
+    }
+    return this._actions[key].apply(this, params);
+  }
 }
+
+Model.prototype.__noSuchMethod__ = function(name, args) {
+  console.log(`No such method ${name} called with ${args}`);
+  return;
+};
+
+export default Model;
